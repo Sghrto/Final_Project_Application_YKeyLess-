@@ -14,7 +14,6 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".NotifikasiFragment" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
@@ -40,6 +39,15 @@
             </intent-filter>
         </activity>
 
+
+
+        <activity android:name=".NotifikasiFragment" >
+            <intent-filter>
+                <action android:name=".NotifikasiFragment" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
 
         <service
             android:name=".UsbService"

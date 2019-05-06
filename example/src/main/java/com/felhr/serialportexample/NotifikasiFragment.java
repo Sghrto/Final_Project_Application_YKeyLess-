@@ -55,12 +55,14 @@ public class NotifikasiFragment extends AppCompatActivity {
     private TextView display1;
     public EditText editText;
     public UsbService usbService;
-
+    ImageView tombol;
 
     private final ServiceConnection usbConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName arg0, IBinder arg1) {
             usbService = ((UsbService.UsbBinder) arg1).getService();
+
+
             usbService.setHandler(mHandler);
         }
 
@@ -79,7 +81,7 @@ public class NotifikasiFragment extends AppCompatActivity {
 
         mHandler = new MyHandler (this);
 
-        display1 = (TextView) findViewById(R.id.textView1);
+        display1 = (TextView) findViewById(R.id.display4);
         //editText = (EditText) findViewById(R.id.editText1);
         ImageView sendButton = (ImageView) findViewById(R.id.imageView1);
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -90,12 +92,13 @@ public class NotifikasiFragment extends AppCompatActivity {
                     if (usbService != null) { // if UsbService was correctly binded, Send data
                         usbService.write(data.getBytes());
                     }
+                    Toast.makeText (getApplicationContext (),"ACCEPT", Toast.LENGTH_LONG).show ();
                 }
             }
         });
 
 
-        display1 = (TextView) findViewById(R.id.textView1);
+        display1 = (TextView) findViewById(R.id.display4);
         //editText = (EditText) findViewById(R.id.editText1);
         ImageView imageview = (ImageView) findViewById(R.id.imageView2);
         imageview.setOnClickListener(new View.OnClickListener() {
@@ -106,10 +109,32 @@ public class NotifikasiFragment extends AppCompatActivity {
                     if (usbService != null) { // if UsbService was correctly binded, Send data
                         usbService.write(data.getBytes());
                     }
+                    Toast.makeText (getApplicationContext (),"DECLINE", Toast.LENGTH_LONG).show ();
                 }
             }
         });
+
+
+
+        display1 = (TextView) findViewById(R.id.display4);
+        //editText = (EditText) findViewById(R.id.editText1);
+        ImageView imageview1 = (ImageView) findViewById(R.id.back);
+        imageview1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!imageview1.toString().equals("")) {
+                    String data = "0";//editText.getText().toString();
+                    if (usbService != null) { // if UsbService was correctly binded, Send data
+                        usbService.write(data.getBytes());
+                    }
+                    //Toast.makeText (getApplicationContext (),"", Toast.LENGTH_LONG).show ();
+                }
+                Intent satu = new Intent (".MainActivity");
+                startActivity (satu);
+            }
+        });
     }
+
 
 
 

@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     public UsbService usbService;
-    TextView display1;
+    TextView display;
     public MyHandler mHandler;
     ImageView tombol;
 
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         OnClicktombolListener();
         mHandler = new MyHandler(this);
 
-        /*display = (TextView) findViewById(R.id.textView1);
+       /* display1 = (TextView) findViewById(R.id.display1);
        // editText = (EditText) findViewById(R.id.editText1);
         Button sendButton = (Button) findViewById(R.id.LogAktivitas);
         sendButton.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
 
-
+        display = (TextView) findViewById(R.id.sugi);
         Switch swit1 = (Switch) findViewById(R.id.swit1);
         swit1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+        display = (TextView) findViewById(R.id.sugi);
         Switch swit2 = (Switch) findViewById (R.id.swit2);
         swit2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void OnClicktombolListener() {
-        tombol = (ImageView) findViewById (R.id.LogAktivitas);
+        tombol = (ImageView) findViewById (R.id.LogAktivity);
         tombol.setOnClickListener (new View.OnClickListener ( ) {
             @Override
             public void onClick(View v) {
@@ -258,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
             switch (msg.what) {
                 case UsbService.MESSAGE_FROM_SERIAL_PORT:
                     String data = (String) msg.obj;
-                    mActivity.get().display1.append(data);
+                    mActivity.get().display.append(data);
                     if(data.equals ("7")){
                         //nih pokonya oprek disini
                         sendNotification(String.valueOf ("ketemuan"));
