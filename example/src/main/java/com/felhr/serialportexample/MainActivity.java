@@ -117,12 +117,13 @@ public class MainActivity extends AppCompatActivity {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                                 data = swit1.getTextOn ( ).toString ( );
                             }
+                            Toast.makeText (getApplicationContext (),"AKTIF", Toast.LENGTH_LONG).show ();
                         }
                         else {
                              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                                  data = swit1.getTextOff ( ).toString ( );//editText.getText().toString();
                              }
-
+                            Toast.makeText (getApplicationContext (),"NON-AKTIF", Toast.LENGTH_LONG).show ();
                         }
 
                     if  (usbService != null) { // if UsbService was correctly binded, Send data
@@ -148,13 +149,14 @@ public class MainActivity extends AppCompatActivity {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                                 data = swit2.getTextOn ( ).toString ( );
                             }
+                            Toast.makeText (getApplicationContext (),"AKTIF", Toast.LENGTH_LONG).show ();
                         }
                         else {
 
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                                 data = swit2.getTextOff ().toString ();//editText.getText().toString();
                             }
-
+                            Toast.makeText (getApplicationContext (),"NON-AKTIF", Toast.LENGTH_LONG).show ();
                         }
                     if  (usbService != null) { // if UsbService was correctly binded, Send data
                         usbService.write (data.getBytes ( ));
