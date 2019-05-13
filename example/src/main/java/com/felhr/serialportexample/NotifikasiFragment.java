@@ -88,7 +88,7 @@ public class NotifikasiFragment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!sendButton.toString().equals("")) {
-                    String data = "4";//editText.getText().toString();
+                    String data = "5";//editText.getText().toString();
                     if (usbService != null) { // if UsbService was correctly binded, Send data
                         usbService.write(data.getBytes());
                     }
@@ -105,7 +105,7 @@ public class NotifikasiFragment extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (!imageview.toString().equals("")) {
-                    String data = "5";//editText.getText().toString();
+                    String data = "6";//editText.getText().toString();
                     if (usbService != null) { // if UsbService was correctly binded, Send data
                         usbService.write(data.getBytes());
                     }
