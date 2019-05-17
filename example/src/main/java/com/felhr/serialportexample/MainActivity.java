@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -62,12 +64,16 @@ public class MainActivity extends AppCompatActivity {
     TextView display;
     public MyHandler mHandler;
     ImageView tombol;
+    //Switch swit1,swit2;
 
-
-    ToggleButton toggleButton,toggleButton2;
+    SharedPreferences sharedpref,sharedpref1 ;
 
     public static final int NOTIFICATION_ID = 1;
+   // public static final String SWIT1 ="swit1";
+    //public static final String SWIT2 ="swit2";
 
+     boolean switOnOff = true;
+     boolean switOnOff1 = true;
 
     private final ServiceConnection usbConnection = new ServiceConnection() {
         @Override
@@ -82,12 +88,15 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    @RequiresApi(api = Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         OnClicktombolListener();
         mHandler = new MyHandler(this);
+
+        //loadData ();
 
        /* display1 = (TextView) findViewById(R.id.display1);
        // editText = (EditText) findViewById(R.id.editText1);
@@ -106,68 +115,123 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
 
+
         display = (TextView) findViewById(R.id.sugi);
         Switch swit1 = (Switch) findViewById(R.id.swit1);
+        sharedpref1 = getSharedPreferences ("com.felhr.serialportexample", MODE_PRIVATE);
+        swit1.setChecked (sharedpref1.getBoolean ("swito1",false));
         swit1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (!swit1.getText ( ).toString ( ).equals ("")) {
                     String data = new String ();
-                        if (bChecked) {
+                        if (isChecked) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                                 data = swit1.getTextOn ( ).toString ( );
                             }
+
+                            SharedPreferences.Editor editor = sharedpref1.edit ();
+                            editor.putBoolean ("swito1" , true);
+                            editor.commit ();
+
                             Toast.makeText (getApplicationContext (),"AKTIF", Toast.LENGTH_LONG).show ();
+                            //saveData ();
                         }
                         else {
                              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                                  data = swit1.getTextOff ( ).toString ( );//editText.getText().toString();
                              }
-                            Toast.makeText (getApplicationContext (),"NON-AKTIF", Toast.LENGTH_LONG).show ();
-                        }
 
+                            SharedPreferences.Editor editor = getSharedPreferences ("com.felhr.serialportexample", MODE_PRIVATE).edit ();
+                            editor.putBoolean ("swito1" , false);
+                            editor.commit ();
+
+                            Toast.makeText (getApplicationContext (),"NON-AKTIF", Toast.LENGTH_LONG).show ();
+                            //saveData ();
+                        }
                     if  (usbService != null) { // if UsbService was correctly binded, Send data
                         usbService.write (data.getBytes ( ));
                     }
                 }
+
             }
-
-            
-
         });
-
 
 
         display = (TextView) findViewById(R.id.sugi);
         Switch swit2 = (Switch) findViewById (R.id.swit2);
+        sharedpref = getSharedPreferences ("com.felhr.serialportexample1", MODE_PRIVATE);
+        swit2.setChecked (sharedpref.getBoolean ("swito2",false));
         swit2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean bChecked) {
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+
                 if (!swit2.getText ( ).toString ( ).equals ("")) {
                     String data = new String();
-                        if (bChecked) {
+                        if (isChecked) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                                 data = swit2.getTextOn ( ).toString ( );
                             }
+
+                            SharedPreferences.Editor editor = sharedpref.edit ();
+                            editor.putBoolean ("swito2" , true);
+                            editor.commit ();
                             Toast.makeText (getApplicationContext (),"AKTIF", Toast.LENGTH_LONG).show ();
+                            //saveData ();
                         }
                         else {
 
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                                 data = swit2.getTextOff ().toString ();//editText.getText().toString();
                             }
+                            SharedPreferences.Editor editor = getSharedPreferences ("com.felhr.serialportexample1", MODE_PRIVATE).edit ();
+                            editor.putBoolean ("swito2" , false);
+                            editor.commit ();
                             Toast.makeText (getApplicationContext (),"NON-AKTIF", Toast.LENGTH_LONG).show ();
+                            //saveData ();
                         }
                     if  (usbService != null) { // if UsbService was correctly binded, Send data
                         usbService.write (data.getBytes ( ));
                     }
+
                 }
+
+
             }
+
 
         });
 
+
+
     }
 
+    public void swiitt2(View view) {
+        display.setText (String.valueOf (switOnOff1));
+    }
+
+    public void switt1(View view) {
+        display.setText (String.valueOf (switOnOff));
+    }
+
+    /*public void saveData() {
+        SharedPreferences sharedPreferences = getSharedPreferences ("savedata", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit ();
+
+        editor.putBoolean (String.valueOf (false), switOnOff);
+        editor.putBoolean (String.valueOf (true), switOnOff1);
+
+        editor.apply();
+    }*/
+
+    /*public void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences ("savedata", MODE_PRIVATE);
+        switOnOff = sharedPreferences.getBoolean (SWIT1,false );
+        switOnOff1 = sharedPreferences.getBoolean (SWIT2,true );
+
+        //display.setText (String.valueOf (switOnOff));
+        //display.setText (String.valueOf (switOnOff1));
+    }*/
 
 
     public void OnClicktombolListener() {
@@ -190,8 +254,8 @@ public class MainActivity extends AppCompatActivity {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notification = (NotificationCompat.Builder) new NotificationCompat
                 .Builder(this)
-                .setSmallIcon(R.drawable.ic_notification_white_48px)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_notification_white_48px))
+                .setSmallIcon(R.mipmap.ic_loncer)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_loncer))
                 .setContentTitle(getResources().getString(R.string.content_title))
                 .setContentText(msg)
                 .setAutoCancel(true)
@@ -205,6 +269,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        //loadData ();
         setFilters();  // Start listening notifications from UsbService
         startService(UsbService.class, usbConnection, null); // Start UsbService(if it was not started before) and Bind it
     }
@@ -212,6 +277,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
+        //loadData ();
         unregisterReceiver(mUsbReceiver);
         unbindService(usbConnection);
     }
@@ -242,6 +308,8 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(mUsbReceiver, filter);
     }
 
+
+
     /*
      * This handler will be passed to UsbService. Data received from serial port is displayed through this handler
      */
@@ -263,11 +331,11 @@ public class MainActivity extends AppCompatActivity {
                     mActivity.get().display.append(data);
                     if(data.equals ("7")){
                         //nih pokonya oprek disini
-                        sendNotification(String.valueOf ("Perwalian"));
+                        sendNotification(String.valueOf ("Bimbingan"));
                     }else if(data.equals ("8")){
-                        sendNotification (String.valueOf ("Tanda Tangan"));
+                        sendNotification (String.valueOf ("Perwalian"));
                     }else if (data.equals ("9")){
-                        sendNotification (String.valueOf ("Bimbingan"));
+                        sendNotification (String.valueOf ("Konsultasi"));
                     }
                     break;
                 case UsbService.CTS_CHANGE:

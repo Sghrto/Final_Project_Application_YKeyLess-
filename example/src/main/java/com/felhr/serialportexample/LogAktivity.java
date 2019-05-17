@@ -17,7 +17,7 @@ public class LogAktivity extends AppCompatActivity {
         super.onCreate (savedInstanceState);
         setContentView (R.layout.activity_log_aktivity);
 
-        OnClicktombolListener();
+
 
         webView = (WebView) this.findViewById(R.id.webView);
         webView.setWebViewClient (new WebViewClient ());
@@ -25,16 +25,5 @@ public class LogAktivity extends AppCompatActivity {
         WebSettings webSettings = webView. getSettings ();
         webSettings.setJavaScriptEnabled (true);
     }
-    public void OnClicktombolListener() {
-        tombol = (ImageView) findViewById (R.id.bacgo);
-        tombol.setOnClickListener (new View.OnClickListener ( ) {
-            @Override
-            public void onClick(View v) {
-                Intent satu = new Intent (".MainActivity");
-                startActivity (satu);
-            }
-        });
-    }
-
 
 }

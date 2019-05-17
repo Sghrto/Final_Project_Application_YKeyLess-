@@ -56,6 +56,7 @@ public class NotifikasiFragment extends AppCompatActivity {
     public EditText editText;
     public UsbService usbService;
     ImageView tombol;
+    Button button;
 
     private final ServiceConnection usbConnection = new ServiceConnection() {
         @Override
@@ -104,12 +105,14 @@ public class NotifikasiFragment extends AppCompatActivity {
         imageview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!imageview.toString().equals("")) {
+                button.setVisibility (View.INVISIBLE);
+                if (!imageview.toString ( ).equals ("")) {
                     String data = "6";//editText.getText().toString();
                     if (usbService != null) { // if UsbService was correctly binded, Send data
-                        usbService.write(data.getBytes());
+                        usbService.write (data.getBytes ( ));
                     }
-                    Toast.makeText (getApplicationContext (),"DECLINE", Toast.LENGTH_LONG).show ();
+                    button.setVisibility (View.VISIBLE);
+                    Toast.makeText (getApplicationContext ( ), "DECLINE", Toast.LENGTH_LONG).show ( );
                 }
             }
         });
@@ -121,7 +124,7 @@ public class NotifikasiFragment extends AppCompatActivity {
         ImageView imageview1 = (ImageView) findViewById(R.id.back);
         imageview1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if (!imageview1.toString().equals("")) {
                     String data = "0";//editText.getText().toString();
                     if (usbService != null) { // if UsbService was correctly binded, Send data
@@ -129,10 +132,12 @@ public class NotifikasiFragment extends AppCompatActivity {
                     }
                     //Toast.makeText (getApplicationContext (),"", Toast.LENGTH_LONG).show ();
                 }
-                Intent satu = new Intent (".MainActivity");
-                startActivity (satu);
+            startActivity (new Intent (NotifikasiFragment.this , MainActivity.class));
+            finish ();
             }
         });
+
+
     }
 
 
@@ -176,6 +181,11 @@ public class NotifikasiFragment extends AppCompatActivity {
         filter.addAction(UsbService.ACTION_USB_NOT_SUPPORTED);
         filter.addAction(UsbService.ACTION_USB_PERMISSION_NOT_GRANTED);
         registerReceiver(mUsbReceiver, filter);
+    }
+
+    public void onClick(View view) {
+        Intent satu = new Intent (NotifikasiFragment.this , MainActivity.class);
+        startActivity (satu);
     }
 
 
