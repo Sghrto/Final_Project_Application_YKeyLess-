@@ -105,13 +105,11 @@ public class NotifikasiFragment extends AppCompatActivity {
         imageview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                button.setVisibility (View.INVISIBLE);
                 if (!imageview.toString ( ).equals ("")) {
                     String data = "6";//editText.getText().toString();
                     if (usbService != null) { // if UsbService was correctly binded, Send data
                         usbService.write (data.getBytes ( ));
                     }
-                    button.setVisibility (View.VISIBLE);
                     Toast.makeText (getApplicationContext ( ), "DECLINE", Toast.LENGTH_LONG).show ( );
                 }
             }

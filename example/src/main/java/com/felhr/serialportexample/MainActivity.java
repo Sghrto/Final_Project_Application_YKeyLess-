@@ -331,11 +331,11 @@ public class MainActivity extends AppCompatActivity {
                     mActivity.get().display.append(data);
                     if(data.equals ("7")){
                         //nih pokonya oprek disini
-                        sendNotification(String.valueOf ("Bimbingan"));
+                        sendNotification(String.valueOf ("Lainnya"));
                     }else if(data.equals ("8")){
                         sendNotification (String.valueOf ("Perwalian"));
                     }else if (data.equals ("9")){
-                        sendNotification (String.valueOf ("Konsultasi"));
+                        sendNotification (String.valueOf ("Bimbingan"));
                     }
                     break;
                 case UsbService.CTS_CHANGE:
