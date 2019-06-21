@@ -2,12 +2,14 @@
 <resources>
 
     <string name="app_name">
-        <font color= 'white' >YKeyLESS</font>
+        <font color='white'>YKeyLESS</font>
     </string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="serial_port">Serial Port</string>
     <string name="content_title">Request Guest</string>
+
+
 
 </resources>

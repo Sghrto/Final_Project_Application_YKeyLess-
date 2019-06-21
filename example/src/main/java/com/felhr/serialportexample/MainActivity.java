@@ -21,19 +21,18 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import java.lang.ref.WeakReference;
 import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
+
+
 
     /*
      * Notifications from UsbService will be received here.
@@ -64,8 +63,9 @@ public class MainActivity extends AppCompatActivity {
     TextView display;
     public MyHandler mHandler;
     ImageView tombol;
+    String ID;
     //Switch swit1,swit2;
-
+    TextView textViewId, textViewUsername,textViewEmail,textViewGender;
     SharedPreferences sharedpref,sharedpref1 ;
 
     public static final int NOTIFICATION_ID = 1;
@@ -93,6 +93,40 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
+            finish();
+            startActivity(new Intent (this, LoginActivity.class));
+        }
+
+
+        textViewId = (TextView) findViewById(R.id.textViewId);
+        textViewUsername = (TextView) findViewById(R.id.textViewUsername);
+        textViewEmail = (TextView) findViewById(R.id.textViewEmail);
+        textViewGender = (TextView) findViewById(R.id.textViewGender);
+
+
+
+        //getting the current user
+        User user = SharedPrefManager.getInstance(this).getUser();
+
+        //setting the values to the textviews
+        textViewId.setText(String.valueOf(user.getId()));
+        textViewUsername.setText(user.getUsername());
+        textViewEmail.setText(user.getEmail());
+        textViewGender.setText(user.getGender());
+
+
+        //when the user presses logout button
+        //calling the logout method
+        findViewById(R.id.buttonLogout).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                SharedPrefManager.getInstance(getApplicationContext()).logout();
+            }
+        });
+
         OnClicktombolListener();
         mHandler = new MyHandler(this);
 
@@ -127,7 +161,9 @@ public class MainActivity extends AppCompatActivity {
                     String data = new String ();
                         if (isChecked) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                                data = swit1.getTextOn ( ).toString ( );
+                                data = (swit1.getTextOn ( ).toString ( ))+(String.valueOf(user.getId())) ;
+
+
                             }
 
                             SharedPreferences.Editor editor = sharedpref1.edit ();
@@ -139,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                                 data = swit1.getTextOff ( ).toString ( );//editText.getText().toString();
+                                 data = (swit1.getTextOff ( ).toString ( ))+(String.valueOf(user.getId()));//editText.getText().toString();
                              }
 
                             SharedPreferences.Editor editor = getSharedPreferences ("com.felhr.serialportexample", MODE_PRIVATE).edit ();
@@ -170,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                     String data = new String();
                         if (isChecked) {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                                data = swit2.getTextOn ( ).toString ( );
+                                data = (swit2.getTextOn ( ).toString ( ))+(String.valueOf(user.getId())) ;
                             }
 
                             SharedPreferences.Editor editor = sharedpref.edit ();
@@ -182,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
                         else {
 
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-                                data = swit2.getTextOff ().toString ();//editText.getText().toString();
+                                data = (swit2.getTextOff ().toString ())+(String.valueOf(user.getId()));//editText.getText().toString();
                             }
                             SharedPreferences.Editor editor = getSharedPreferences ("com.felhr.serialportexample1", MODE_PRIVATE).edit ();
                             editor.putBoolean ("swito2" , false);
@@ -314,6 +350,8 @@ public class MainActivity extends AppCompatActivity {
      * This handler will be passed to UsbService. Data received from serial port is displayed through this handler
      */
     public class MyHandler extends Handler {
+        User user = SharedPrefManager.getInstance(getApplication()).getUser();
+
         public final WeakReference<MainActivity> mActivity;
 
         public MyHandler(MainActivity activity) {
@@ -325,16 +363,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+            //setting the values to the textviews
+            textViewId.setText(String.valueOf(user.getId()));
+
             switch (msg.what) {
                 case UsbService.MESSAGE_FROM_SERIAL_PORT:
                     String data = (String) msg.obj;
                     mActivity.get().display.append(data);
-                    if(data.equals ("7")){
+                    if(data.equals ("7"+(String.valueOf(user.getId())))){
                         //nih pokonya oprek disini
                         sendNotification(String.valueOf ("Lainnya"));
-                    }else if(data.equals ("8")){
+                    }else if(data.equals ("8"+(String.valueOf(user.getId())))){
                         sendNotification (String.valueOf ("Perwalian"));
-                    }else if (data.equals ("9")){
+                    }else if (data.equals ("9"+(String.valueOf(user.getId())))){
                         sendNotification (String.valueOf ("Bimbingan"));
                     }
                     break;
