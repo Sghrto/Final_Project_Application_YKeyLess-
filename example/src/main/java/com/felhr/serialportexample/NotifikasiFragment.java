@@ -124,7 +124,7 @@ public class NotifikasiFragment extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (!imageview1.toString().equals("")) {
-                    String data = "0";//editText.getText().toString();
+                    String data = "1000";//editText.getText().toString();
                     if (usbService != null) { // if UsbService was correctly binded, Send data
                         usbService.write(data.getBytes());
                     }
