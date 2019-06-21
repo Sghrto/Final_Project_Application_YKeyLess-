@@ -31,7 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
         //if the user is already logged in we will directly start the profile activity
         if (SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
-            startActivity(new Intent (this, MainActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
             return;
         }
 
@@ -56,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
                 //if user pressed on login
                 //we will open the login screen
                 finish();
-                startActivity(new Intent (RegisterActivity.this, LoginActivity.class));
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             }
         });
 
@@ -107,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
                 RequestHandler requestHandler = new RequestHandler();
 
                 //creating request parameters
-                HashMap<String, String> params = new HashMap<> ();
+                HashMap<String, String> params = new HashMap<>();
                 params.put("username", username);
                 params.put("email", email);
                 params.put("password", password);
@@ -133,7 +133,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 try {
                     //converting response to json object
-                    JSONObject obj = new JSONObject (s);
+                    JSONObject obj = new JSONObject(s);
 
                     //if no error in response
                     if (!obj.getBoolean("error")) {
@@ -155,7 +155,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         //starting the profile activity
                         finish();
-                        startActivity(new Intent (getApplicationContext(), MainActivity.class));
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     } else {
                         Toast.makeText(getApplicationContext(), "Some error occurred", Toast.LENGTH_SHORT).show();
                     }

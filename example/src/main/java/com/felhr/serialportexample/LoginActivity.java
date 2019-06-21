@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //open register screen
                 finish();
-                startActivity(new Intent (getApplicationContext(), RegisterActivity.class));
+                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
             }
         });
     }
@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 try {
                     //converting response to json object
-                    JSONObject obj = new JSONObject (s);
+                    JSONObject obj = new JSONObject(s);
 
                     //if no error in response
                     if (!obj.getBoolean("error")) {
@@ -109,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         //starting the profile activity
                         finish();
-                        startActivity(new Intent (getApplicationContext(), MainActivity.class));
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     } else {
                         Toast.makeText(getApplicationContext(), "Invalid username or password", Toast.LENGTH_SHORT).show();
                     }
@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                 RequestHandler requestHandler = new RequestHandler();
 
                 //creating request parameters
-                HashMap<String, String> params = new HashMap<> ();
+                HashMap<String, String> params = new HashMap<>();
                 params.put("username", username);
                 params.put("password", password);
 
