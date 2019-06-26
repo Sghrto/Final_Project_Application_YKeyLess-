@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">
-        <font color='white'>YKeyLESS</font>
+        <font color='white'>YKeyLess</font>
     </string>
 
     <string name="hello_world">Hello world!</string>

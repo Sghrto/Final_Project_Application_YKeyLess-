@@ -102,8 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
         textViewId = (TextView) findViewById(R.id.textViewId);
         textViewUsername = (TextView) findViewById(R.id.textViewUsername);
-        textViewEmail = (TextView) findViewById(R.id.textViewEmail);
-        textViewGender = (TextView) findViewById(R.id.textViewGender);
+        //textViewEmail = (TextView) findViewById(R.id.textViewEmail);
+        //textViewGender = (TextView) findViewById(R.id.textViewGender);
 
 
 
@@ -113,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
         //setting the values to the textviews
         textViewId.setText(String.valueOf(user.getId()));
         textViewUsername.setText(user.getUsername());
-        textViewEmail.setText(user.getEmail());
-        textViewGender.setText(user.getGender());
+        //textViewEmail.setText(user.getEmail());
+        //textViewGender.setText(user.getGender());
 
 
         //when the user presses logout button
