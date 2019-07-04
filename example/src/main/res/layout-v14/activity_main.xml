@@ -112,7 +112,7 @@
             android:checked="false"
             android:onClick="swiitt2"
             android:shadowColor="@android:color/background_light"
-            android:text="Do Not Distrub"
+            android:text="Do Not Disturb"
             android:textColor="@android:color/background_light"
             android:textColorLink="@android:color/background_light"
             android:textOff="4"

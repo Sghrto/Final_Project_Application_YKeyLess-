@@ -2,18 +2,18 @@ package com.felhr.serialportexample;
 
 public class User {
 
-    private int id;
+    private int usr;
     private String username, email, gender;
 
-    public User(int id, String username, String email, String gender) {
-        this.id = id;
+    public User(int usr, String username, String email, String gender) {
+        this.usr = usr;
         this.username = username;
         this.email = email;
         this.gender = gender;
     }
 
     public int getId() {
-        return id;
+        return usr;
     }
 
     public String getUsername() {

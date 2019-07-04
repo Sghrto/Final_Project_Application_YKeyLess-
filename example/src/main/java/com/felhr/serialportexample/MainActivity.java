@@ -372,11 +372,11 @@ public class MainActivity extends AppCompatActivity {
                     mActivity.get().display.append(data);
                     if(data.equals ("7"+(String.valueOf(user.getId())))){
                         //nih pokonya oprek disini
-                        sendNotification(String.valueOf ("Lainnya"));
+                        sendNotification(String.valueOf ("Perwalian"));
                     }else if(data.equals ("8"+(String.valueOf(user.getId())))){
-                        sendNotification (String.valueOf ("Perwalian"));
-                    }else if (data.equals ("9"+(String.valueOf(user.getId())))){
                         sendNotification (String.valueOf ("Bimbingan"));
+                    }else if (data.equals ("9"+(String.valueOf(user.getId())))){
+                        sendNotification (String.valueOf ("Lainnya"));
                     }
                     break;
                 case UsbService.CTS_CHANGE:
